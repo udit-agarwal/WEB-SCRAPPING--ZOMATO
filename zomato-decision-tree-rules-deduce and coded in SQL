@@ -1,0 +1,361 @@
+#1000>=bucket
+#pubs and bars
+
+Select  wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='PUBS & BARS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Aundh','Tilak Road'))a where rnk=1
+
+#Buffet
+
+Select wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select  wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+  from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Tilak Road'))a where rnk=1
+
+
+
+##500-100
+#Delivery Restaurant(Restaurant)
+
+Select a.wards,   latitude,   longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Aundh','Tilak Road','Kothrud Karveroad')
+)a where  rnk=1
+#buffet
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where  rnk=1
+
+##100-500
+#Dhabas
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk from analytics_zomatodata
+WHERE type='DHABAS' and avg_cost_bucket  in ('100-500') and population_denisty<=0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad','Aundh'))a where rnk=1
+
+#Delivery Restaurant
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('100-500') and population_denisty>0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where rnk=1
+
+
+#CAFES
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='CAFES' and avg_cost_bucket  in ('100-500')
+and wards not in ('Tilak Road'))a where rnk=1
+
+##NO BUCKET PROBLEM
+#DINE-OUT
+
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='DINE_OUT' and avg_cost_bucket  in ('100-500',
+'500-1000',
+'1000-1500',
+'1500-2000',
+'2000-3000')
+AND WARDS='Tilak Road'
+)a where rnk=1#1000>=bucket
+#pubs and bars
+
+Select  wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='PUBS & BARS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Aundh','Tilak Road'))a where rnk=1
+
+#Buffet
+
+Select wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select  wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+  from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Tilak Road'))a where rnk=1
+
+
+
+##500-100
+#Delivery Restaurant(Restaurant)
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Aundh','Tilak Road','Kothrud Karveroad')
+)a where  rnk=1
+#buffet
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where  rnk=1
+
+##100-500
+#Dhabas
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk from analytics_zomatodata
+WHERE type='DHABAS' and avg_cost_bucket  in ('100-500') and population_denisty<=0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad','Aundh'))a where rnk=1
+
+#Delivery Restaurant
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('100-500') and population_denisty>0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where rnk=1
+
+
+#CAFES
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='CAFES' and avg_cost_bucket  in ('100-500')
+and wards not in ('Tilak Road'))a where rnk=1
+
+##NO BUCKET PROBLEM
+#DINE-OUT
+
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='DINE_OUT' and avg_cost_bucket  in ('100-500',
+'500-1000',
+'1000-1500',
+'1500-2000',
+'2000-3000')
+AND WARDS='Tilak Road'
+)a where rnk=1#1000>=bucket
+#pubs and bars
+
+Select  wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='PUBS & BARS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Aundh','Tilak Road'))a where rnk=1
+
+#Buffet
+
+Select wards,latitude,longitude,Land_rate,population_denisty,university_count,restaurant_count
+from(Select  wards,latitude,longitude,Land_rate,population_denisty,university_count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+  from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket not in ('100-500','500-1000')
+and wards not in ('Tilak Road'))a where rnk=1
+
+
+
+##500-100
+#Delivery Restaurant(Restaurant)
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Aundh','Tilak Road','Kothrud Karveroad')
+)a where  rnk=1
+#buffet
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='BUFFETS' and avg_cost_bucket  in ('500-1000')
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where  rnk=1
+
+##100-500
+#Dhabas
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk from analytics_zomatodata
+WHERE type='DHABAS' and avg_cost_bucket  in ('100-500') and population_denisty<=0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad','Aundh'))a where rnk=1
+
+#Delivery Restaurant
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='RESTAURANTS' and avg_cost_bucket  in ('100-500') and population_denisty>0.001 
+and wards not in ('Tilak Road','Kothrud Karveroad'))a where rnk=1
+
+
+#CAFES
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='CAFES' and avg_cost_bucket  in ('100-500')
+and wards not in ('Tilak Road'))a where rnk=1
+
+##NO BUCKET PROBLEM
+#DINE-OUT
+
+
+Select  wards, latitude, longitude, Land_rate, population_denisty, university_count, restaurant_count
+from (Select  wards
+,latitude
+,longitude
+,Land_rate
+,population_denisty
+,university_count as university_Count
+,count(1) over(partition by wards order by Land_rate,population_denisty,university_count) as restaurant_count
+,row_number() over(partition by wards order by Land_rate,population_denisty,university_count) as rnk
+ from analytics_zomatodata
+WHERE type='DINE_OUT' and avg_cost_bucket  in ('100-500',
+'500-1000',
+'1000-1500',
+'1500-2000',
+'2000-3000')
+AND WARDS='Tilak Road'
+)a where rnk=1
