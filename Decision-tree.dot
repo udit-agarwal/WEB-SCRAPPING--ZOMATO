@@ -1,0 +1,36 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="WARDS_Tilak Road <= 0.5\ngini = 0.685\nsamples = 1434\nvalue = [41, 224, 20, 336, 130, 683]"] ;
+1 [label="Avg_cost_bucket_100-500 <= 0.5\ngini = 0.67\nsamples = 1294\nvalue = [41, 205, 20, 238, 130, 660]"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="Avg_cost_bucket_500-1000 <= 0.5\ngini = 0.736\nsamples = 789\nvalue = [40, 116, 5, 184, 130, 314]"] ;
+1 -> 2 ;
+3 [label="WARDS_Aundh <= 0.5\ngini = 0.732\nsamples = 375\nvalue = [27, 18, 0, 107, 125, 98]"] ;
+2 -> 3 ;
+4 [label="gini = 0.637\nsamples = 206\nvalue = [10, 7, 0, 73, 98, 18]"] ;
+3 -> 4 ;
+5 [label="gini = 0.696\nsamples = 169\nvalue = [17, 11, 0, 34, 27, 80]"] ;
+3 -> 5 ;
+6 [label="WARDS_Kothrud Karveroad <= 0.5\ngini = 0.636\nsamples = 414\nvalue = [13, 98, 5, 77, 5, 216]"] ;
+2 -> 6 ;
+7 [label="WARDS_Aundh <= 0.5\ngini = 0.599\nsamples = 311\nvalue = [13, 77, 5, 37, 2, 177]"] ;
+6 -> 7 ;
+8 [label="gini = 0.559\nsamples = 181\nvalue = [1, 33, 5, 28, 2, 112]"] ;
+7 -> 8 ;
+9 [label="gini = 0.622\nsamples = 130\nvalue = [12, 44, 0, 9, 0, 65]"] ;
+7 -> 9 ;
+10 [label="gini = 0.663\nsamples = 103\nvalue = [0, 21, 0, 40, 3, 39]"] ;
+6 -> 10 ;
+11 [label="WARDS_Kothrud Karveroad <= 0.5\ngini = 0.487\nsamples = 505\nvalue = [1, 89, 15, 54, 0, 346]"] ;
+1 -> 11 ;
+12 [label="Population_denisty <= 0.003\ngini = 0.407\nsamples = 347\nvalue = [1, 52, 14, 19, 0, 261]"] ;
+11 -> 12 ;
+13 [label="gini = 0.446\nsamples = 206\nvalue = [1, 30, 7, 19, 0, 149]"] ;
+12 -> 13 ;
+14 [label="gini = 0.342\nsamples = 141\nvalue = [0, 22, 7, 0, 0, 112]"] ;
+12 -> 14 ;
+15 [label="gini = 0.607\nsamples = 158\nvalue = [0, 37, 1, 35, 0, 85]"] ;
+11 -> 15 ;
+16 [label="gini = 0.465\nsamples = 140\nvalue = [0, 19, 0, 98, 0, 23]"] ;
+0 -> 16 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+}
